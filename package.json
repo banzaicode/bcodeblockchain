@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "name": "myblockchain",
+  "version": "1.0.0",
+  "description": "Prueba de concepto de una implementacion de blockchain de prueba de trabajo",
+  "main": "index.js",
+  "author": "BanzaiCode",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/node": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.18"
+  },
+  "scripts":{
+    "start": "babel-node index.js",
+    "nodemon": "nodemon --exec npm start"
+  }
+}
