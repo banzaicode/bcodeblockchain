@@ -9,15 +9,19 @@ Entender lo que es la descentralización y los beneficios que podemos obtener ap
 ## Setup del ambiente de desarrollo
 
 Inicializamos un proyecto con npm [https://www.npmjs.com/]
+
 ```npm init```
 
 Instalamos dependencias de babel [https://babeljs.io/]
+
 ```npm install @babel/core @babel/node @babel/preset-env --include=dev```
 
 Instalamos eslint para poder ser mas ordenados y tener algunos lineamientos cuando codificamos, agregamos la configuración de airbnb que es bastante buena y agregamos el plugin de import que nos va a ayudar bastante. [https://eslint.org/]
+
 ```npm install eslint eslint-config-airbnb-base eslint-plugin-import --include=dev```
 
 Agregamos nodemon para tener la caracteristica de poner hacer cambios en el código sin tener que cortar la ejecución, con solo guardar los cambios nodemon actualiza la instancia en ejecución. [https://nodemon.io/]
+
 ```npm install nodemon --include=dev```
 
 Creamos un fichero .babelrc y agregamos solo el preset que hemos instalado por el momento ```"presets": ["@babel/preset-env"]```
@@ -26,3 +30,14 @@ Creamos un fichero .eslintrc y agregamos la extención de airbnb, configuramos j
 
 Agregamos el archivo index.js y le colocamos un console.log solo para saber que funcina nuestra inicialización.
 
+## Creación del block Genesis de la blockchain
+
+### Creación de la clase block
+Crearemos una clase block que sera la base de nuestra blockchain con las siguientes propiedades iniciales:
+* timestamp (fecha de creación del bloque)
+* prevHash (hash del bloque anterior que se toma como vector de enlace)
+* hash (valor unico generado con valores del mismo bloque)
+* data (datos guardados en el bloque)
+
+Con esta clase generaremos el primer bloque de la blockchain llamado bloque genesis.
+Para poder generar el bloque genesis vamos a crear un metodo mine para que la clase se encargue de hacer el proceso.
