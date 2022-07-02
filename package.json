@@ -15,8 +15,9 @@
     "eslint-plugin-import": "^2.26.0",
     "nodemon": "^2.0.18"
   },
-  "scripts":{
+  "scripts": {
     "start": "babel-node index.js",
-    "nodemon": "nodemon --exec npm start"
+    "nodemon": "nodemon --exec npm start",
+    "lint": "eslint index.js src"
   }
 }
