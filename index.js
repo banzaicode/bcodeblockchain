@@ -1,5 +1,4 @@
-import PKG from './package.json' assert {type: "json"};
+import Block from './src/blockchain/Block.js';
 
-const { name, version } = PKG;
-
-console.log(`Iniciamos ${name} v${version}`);
+const block1 = new Block(Date.now(), 'a', 'b', 'c');
+console.log(block1.toString());
