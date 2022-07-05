@@ -15,6 +15,14 @@ class Block {
     return new this(timestamp, undefined, hash, data);
   }
 
+  static mine(prevBlock, data) {
+    const timestamp = Date.now();
+    const { hash: prevHash } = prevBlock;
+    const hash = Block.hash(timestamp, prevHash, data);
+
+    return new this(timestamp, prevHash, hash, data);
+  }
+
   static hash(timestamp, prevHash, data) {
     const { SHA256 } = pkg;
     return SHA256(`${timestamp}${prevHash}${data}`).toString();
