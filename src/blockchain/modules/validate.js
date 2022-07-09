@@ -3,7 +3,7 @@ import Block from '../Block';
 export default (Blockchain) => {
     const [genesisBlock, ...blocks] = Blockchain;
 
-    if(genesisBlock !== Block.genesis) {
+    if(JSON.stringify(genesisBlock) !== JSON.stringify(Block.genesis)) {
         throw Error('Invalid Genesis Block');
     } 
 
