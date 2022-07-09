@@ -78,3 +78,6 @@ Para que podamos trabajar en forma distribuida se necesita incorporar soporte pa
 
 ### Testing de la clase validate
 Creamos la suite de test `validate.test.js` y procedemos a realizar el testing de la cadena, le enviamos la cadena completa y nos tendria que devolver un true, luego deberiamos validar los diferentes errores que fuimos implementando (que el bloque Genesis no este corrupto, que el prevHash no este corrupto y que el hash no este corrupto).
+
+## Agregar un metodo replace a blockchain
+Este metodo se encarga de reemplazar el array de bloques que tenemos localmente por el que se le pasa en el caso de que el bloque local tenga menos bloques que el que se le pasa como parametro, ademas se lo pasa por la validación de bloques para poder asegurarnos de que la cadena de bloques pasada es valida.
