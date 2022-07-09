@@ -3,9 +3,11 @@ import validate from './validate';
 
 describe('validate()', () => {
     let blockchain;
+    let blockchainAltNode;
 
     beforeEach(() => {
         blockchain = new Blockchain();
+        blockchainAltNode = new Blockchain();
     });
 
     it('validate a valid chain', () => {
@@ -39,5 +41,29 @@ describe('validate()', () => {
         expect(() => {
             validate(blockchain.blocks);
         }).toThrowError('Invalid hash');
+    });
+
+    it('replace the chain with a valid chain', () => {
+        blockchainAltNode.addBlock('Block-01');
+        blockchain.replace(blockchainAltNode.blocks);
+
+        expect(blockchain.blocks).toEqual(blockchainAltNode.blocks);
+    });
+
+    it('does not replace the chain with one with less block', () => {
+        blockchain.addBlock('Block-01');
+
+        expect(() => {
+            blockchain.replace(blockchainAltNode.blocks);
+        }).toThrowError('Received chain is not longer than current chain');
+    });
+
+    it('not replace the chain with same block is not valid', () => {
+        blockchainAltNode.addBlock('Block-01');
+        blockchainAltNode.blocks[1].data = 'data-invalid';
+
+        expect(() => {
+            blockchain.replace(blockchainAltNode.blocks);
+        }).toThrowError('Received chain is invalid');
     });
 });
