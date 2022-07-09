@@ -57,3 +57,12 @@ Instalación de jest
 
 ```npm install --save-dev babel-jest jest```
 
+
+## Creación de la clase Blockchain
+
+Esta clase depende de la clase Block y maneja un array interno de bloques para su proposito.
+
+Cada instacia de esta clase se inicia con un bloque Genesis.
+
+En una primera iteración vamos a crear un metodo que agrega bloques nuevos al final del array y que tenga como relación el bloque previo.
+
