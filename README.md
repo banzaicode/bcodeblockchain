@@ -40,4 +40,20 @@ Crearemos una clase block que sera la base de nuestra blockchain con las siguien
 * data (datos guardados en el bloque)
 
 Con esta clase generaremos el primer bloque de la blockchain llamado bloque genesis.
-Para poder generar el bloque genesis vamos a crear un metodo mine para que la clase se encargue de hacer el proceso.
+
+Para poder generar el bloque genesis vamos a crear, como primera iteración, un metodo solo para esta responsabilidad, crear el bloque Genesis de la blockchain.
+
+Para poder generar nuevos bloques luego de inicializar la blockchain con el bloque Genesis, implementaremos un metodo mine para que la clase se encargue de hacer el proceso.
+
+## Testing de la clase Block
+
+Teniendo la clase block, vamos a necesitar que nuestro código sea consistente durante todo nuestro desarrollo.
+
+Vamos a utilizar jest un framework de testing para javascript.
+
+Ademas de ayudarnos a verificar que no tenemos errores en nuestra implementación, esto nos ayudará para poder explicar cómo funcionan las partes de nuestro proyecto.
+
+Instalación de jest
+
+```npm install --save-dev babel-jest jest```
+
