@@ -75,3 +75,6 @@ Para que podamos trabajar en forma distribuida se necesita incorporar soporte pa
 
 * length validator: el objetivo final es siempre quedarse con la cadena mas larga de entre todos los nodos.
 * hash validator: el objetivo final es verificar la integridad de la blockchain.
+
+### Testing de la clase validate
+Creamos la suite de test `validate.test.js` y procedemos a realizar el testing de la cadena, le enviamos la cadena completa y nos tendria que devolver un true, luego deberiamos validar los diferentes errores que fuimos implementando (que el bloque Genesis no este corrupto, que el prevHash no este corrupto y que el hash no este corrupto).
