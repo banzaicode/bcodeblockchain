@@ -70,3 +70,8 @@ En una primera iteración vamos a crear un metodo que agrega bloques nuevos al f
 
 Como se realizó el test de la clase block procedemos a crear la clase `Blockchain.test.js` en la misma carpeta e implementamos 2 metodos de testing. Testeamos que en toda blockchain exista el bloque Genesis y otro para verificar el metodo addBlock.
 
+## Agregar validador
+Para que podamos trabajar en forma distribuida se necesita incorporar soporte para multiples nodos y para esto necesitamos un sistema de validación para cuando se generen nuevos bloques en nuestra blockchain.
+
+* length validator: el objetivo final es siempre quedarse con la cadena mas larga de entre todos los nodos.
+* hash validator: el objetivo final es verificar la integridad de la blockchain.
