@@ -45,7 +45,7 @@ Para poder generar el bloque genesis vamos a crear, como primera iteración, un 
 
 Para poder generar nuevos bloques luego de inicializar la blockchain con el bloque Genesis, implementaremos un metodo mine para que la clase se encargue de hacer el proceso.
 
-## Testing de la clase Block
+### Testing de la clase Block
 
 Teniendo la clase block, vamos a necesitar que nuestro código sea consistente durante todo nuestro desarrollo.
 
@@ -65,4 +65,8 @@ Esta clase depende de la clase Block y maneja un array interno de bloques para s
 Cada instacia de esta clase se inicia con un bloque Genesis.
 
 En una primera iteración vamos a crear un metodo que agrega bloques nuevos al final del array y que tenga como relación el bloque previo.
+
+### Testing de la clase blockchain
+
+Como se realizó el test de la clase block procedemos a crear la clase `Blockchain.test.js` en la misma carpeta e implementamos 2 metodos de testing. Testeamos que en toda blockchain exista el bloque Genesis y otro para verificar el metodo addBlock.
 
