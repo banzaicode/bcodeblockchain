@@ -45,7 +45,7 @@ Para poder generar el bloque genesis vamos a crear, como primera iteración, un 
 
 Para poder generar nuevos bloques luego de inicializar la blockchain con el bloque Genesis, implementaremos un metodo mine para que la clase se encargue de hacer el proceso.
 
-## Testing de la clase Block
+### Testing de la clase Block
 
 Teniendo la clase block, vamos a necesitar que nuestro código sea consistente durante todo nuestro desarrollo.
 
@@ -57,3 +57,27 @@ Instalación de jest
 
 ```npm install --save-dev babel-jest jest```
 
+
+## Creación de la clase Blockchain
+
+Esta clase depende de la clase Block y maneja un array interno de bloques para su proposito.
+
+Cada instacia de esta clase se inicia con un bloque Genesis.
+
+En una primera iteración vamos a crear un metodo que agrega bloques nuevos al final del array y que tenga como relación el bloque previo.
+
+### Testing de la clase blockchain
+
+Como se realizó el test de la clase block procedemos a crear la clase `Blockchain.test.js` en la misma carpeta e implementamos 2 metodos de testing. Testeamos que en toda blockchain exista el bloque Genesis y otro para verificar el metodo addBlock.
+
+## Agregar validador
+Para que podamos trabajar en forma distribuida se necesita incorporar soporte para multiples nodos y para esto necesitamos un sistema de validación para cuando se generen nuevos bloques en nuestra blockchain.
+
+* length validator: el objetivo final es siempre quedarse con la cadena mas larga de entre todos los nodos.
+* hash validator: el objetivo final es verificar la integridad de la blockchain.
+
+### Testing de la clase validate
+Creamos la suite de test `validate.test.js` y procedemos a realizar el testing de la cadena, le enviamos la cadena completa y nos tendria que devolver un true, luego deberiamos validar los diferentes errores que fuimos implementando (que el bloque Genesis no este corrupto, que el prevHash no este corrupto y que el hash no este corrupto).
+
+## Agregar un metodo replace a blockchain
+Este metodo se encarga de reemplazar el array de bloques que tenemos localmente por el que se le pasa en el caso de que el bloque local tenga menos bloques que el que se le pasa como parametro, ademas se lo pasa por la validación de bloques para poder asegurarnos de que la cadena de bloques pasada es valida.
