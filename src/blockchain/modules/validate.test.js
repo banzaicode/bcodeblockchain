@@ -1,4 +1,4 @@
-import Blockchain from "../Blockchain";
+import Blockchain from "../blockchain";
 import validate from './validate';
 
 describe('validate()', () => {

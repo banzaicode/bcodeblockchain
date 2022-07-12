@@ -1,4 +1,4 @@
-import Block from './Block.js';
+import Block from './block';
 import validate from './modules/validate';
 
 class Blockchain {
