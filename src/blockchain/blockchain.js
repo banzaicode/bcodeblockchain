@@ -1,5 +1,5 @@
-import Block from './block';
-import validate from './modules/validate';
+import Block from './block.js';
+import validate from './modules/validate.js';
 
 class Blockchain {
     constructor() {

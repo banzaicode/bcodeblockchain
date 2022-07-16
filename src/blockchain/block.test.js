@@ -1,4 +1,4 @@
-import Block from './block';
+import Block from './block.js';
 
 describe('Block', () => {
     let timestamp;
