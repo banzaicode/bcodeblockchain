@@ -81,3 +81,12 @@ Creamos la suite de test `validate.test.js` y procedemos a realizar el testing d
 
 ## Agregar un metodo replace a blockchain
 Este metodo se encarga de reemplazar el array de bloques que tenemos localmente por el que se le pasa en el caso de que el bloque local tenga menos bloques que el que se le pasa como parametro, ademas se lo pasa por la validación de bloques para poder asegurarnos de que la cadena de bloques pasada es valida.
+
+## Inicializando la blockchain app
+
+Vamos a configurar endpoints para que cualquier usuario pueda acceder a las propiedades de nuestra blockchain.
+
+Paquetes necesarios para poder agregar endpoints para poder trabajar en forma descentralizada.
+
+```npm install express body-parser ```
+
