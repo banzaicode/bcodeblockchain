@@ -10,6 +10,20 @@ const blockchain = new Blockchain();
 
 app.use(bodyParser.json());
 
+app.get('/blocks', (request, response) => {
+    response.json(blockchain.blocks);
+});
+
+app.post('/mine', (request, response) => {
+    const { body: { data } } = request;
+    const block = blockchain.addBlock(data);
+
+    response.json({
+        blocks: blockchain.blocks.length,
+        block,
+    });
+});
+
 app.listen(HTTP_PORT, () => {
     console.log(`Service HTTP:${HTTP_PORT} ready...`);
 });
