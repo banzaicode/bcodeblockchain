@@ -31,11 +31,20 @@ class NetworkService {
         socket.on('message', (message) => {
             const { type, value } = JSON.parse(message);
 
-            console.log({ type, value });
+            try {
+                if (type === MESSAGES.BLOCKS) blockchain.replace(value);
+            } catch (error) {
+                console.log(`[ws:message] error ${error}`);
+            }
         });
 
         socket.send(JSON.stringify({ type: MESSAGES.BLOCKS, value: blockchain.blocks }));
     };
+
+    sync() {
+        const { blockchain: { blocks } } = this;
+        this.broadcast(MESSAGES.BLOCKS, blocks);
+    }
 
     broadcast(type, value) {
         console.log(`[ws:broadcast] ${type}`);

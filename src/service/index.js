@@ -16,9 +16,15 @@ app.get('/blocks', (request, response) => {
     response.json(blockchain.blocks);
 });
 
+app.get('/nodes', (request, response) => {
+    response.json(networkService.sockets.length);
+});
+
 app.post('/mine', (request, response) => {
     const { body: { data } } = request;
     const block = blockchain.addBlock(data);
+
+    networkService.sync();
 
     response.json({
         blocks: blockchain.blocks.length,
