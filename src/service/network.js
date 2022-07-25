@@ -7,7 +7,7 @@ const MESSAGES = { BLOCKS: 'blocks' };
 class NetworkService {
     constructor(blockchain) {
         this.blockchain = blockchain;
-        this.socket = [];
+        this.sockets = [];
     };
 
     listen() {
@@ -23,10 +23,10 @@ class NetworkService {
     };
 
     onConnection(socket){
-        const { blockchain: { blocks } } = this;
+        const { blockchain } = this;
 
-        console.log('ws:socket connected.');
-        this.socket.push(socket);
+        console.log('[ws:socket] connected.');
+        this.sockets.push(socket);
 
         socket.on('message', (message) => {
             const { type, value } = JSON.parse(message);
@@ -34,13 +34,13 @@ class NetworkService {
             console.log({ type, value });
         });
 
-        socket.send(JSON.stringify({ type: MESSAGES.BLOCKS, value: blocks }));
+        socket.send(JSON.stringify({ type: MESSAGES.BLOCKS, value: blockchain.blocks }));
     };
 
     broadcast(type, value) {
-        console.log(`ws:broadcast ${type}`);
-        const message = JSON.stringify({ type, value });
-        this.sockets.forEach((socket) => socket.send(message));
+        console.log(`[ws:broadcast] ${type}`);
+        const message = JSON.stringify({ type: type, value: value });
+        this.sockets?.forEach((socket) => socket.send(message));
     }
 }
 
