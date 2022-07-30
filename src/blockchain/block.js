@@ -1,21 +1,23 @@
 import pkg from 'crypto-js';
+import adjustDifficulty from './modules/difficulty';
 
 const DIFFICULTY = 3;
 
 class Block {
-  constructor(timestamp, prevHash, hash, data, nonce) {
+  constructor(timestamp, prevHash, hash, data, nonce, difficulty) {
     this.timestamp = timestamp;
     this.prevHash = prevHash;
     this.hash = hash;
     this.data = data;
     this.nonce = nonce;
+    this.difficulty = difficulty;
   }
 
   static get genesis() {
     const timestamp = (new Date(2010, 0, 1)).getTime();
     const data = 'genesis-data';
     const hash = Block.hash(timestamp, undefined, data);
-    return new this(timestamp, undefined, hash, data);
+    return new this(timestamp, undefined, hash, data, 0, DIFFICULTY);
   }
 
   static mine(prevBlock, data) {
@@ -23,25 +25,27 @@ class Block {
     let timestamp;
     let hash;
     let nonce = 0;
+    let { difficulty } = prevBlock;
 
     do {
       timestamp = Date.now();
       nonce += 1;
-      hash = Block.hash(timestamp, prevHash, data, nonce);
+      difficulty = adjustDifficulty(prevBlock, timestamp);
+      hash = Block.hash(timestamp, prevHash, data, nonce, difficulty);
 
-    } while (hash.substring(0, DIFFICULTY) !== '0'.repeat(DIFFICULTY));
+    } while (hash.substring(0, difficulty) !== '0'.repeat(difficulty));
 
-    return new this(timestamp, prevHash, hash, data, nonce);
+    return new this(timestamp, prevHash, hash, data, nonce, difficulty);
   }
 
-  static hash(timestamp, prevHash, data, nonce) {
+  static hash(timestamp, prevHash, data, nonce, difficulty) {
     const { SHA256 } = pkg;
-    return SHA256(`${timestamp}${prevHash}${data}${nonce}`).toString();
+    return SHA256(`${timestamp}${prevHash}${data}${nonce}${difficulty}`).toString();
   }
 
   toString() {
     const {
-      timestamp, prevHash, hash, data, nonce,
+      timestamp, prevHash, hash, data, nonce, difficulty
     } = this;
 
     return `Block - 
@@ -50,6 +54,7 @@ class Block {
         hash:      ${hash}
         data:      ${data}
         nonce:     ${nonce}
+        difficulty:${difficulty}
         `;
   }
 }
