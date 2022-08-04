@@ -24,6 +24,22 @@ Agregamos nodemon para tener la caracteristica de poner hacer cambios en el cód
 
 ```npm install nodemon --include=dev```
 
+Instalación de jest para realizar nuestros test
+
+```npm install --save-dev babel-jest jest```
+
+Paquetes necesarios para poder agregar nuestros endpoints a la app.
+
+```npm install express body-parser ```
+
+Instalamos las dependencias para trabajar con websockets
+
+```npm install ws ```
+
+Instalamos modulos de node para trabajar con curvas elipticas de criptografía, es mas eficiente que RCA y las llaves que podremos generar serán mas cortas, seguras y mas rapidas.
+
+```npm install elliptic ```
+
 Creamos un fichero .babelrc y agregamos solo el preset que hemos instalado por el momento ```"presets": ["@babel/preset-env"]```
 
 Creamos un fichero .eslintrc y agregamos la extención de airbnb, configuramos jest y node y agregamos una regla para la cantidad de columnas (esto ultimo es cuestion personal, a mi me agrada agregarlo)
@@ -53,11 +69,6 @@ Vamos a utilizar jest un framework de testing para javascript.
 
 Ademas de ayudarnos a verificar que no tenemos errores en nuestra implementación, esto nos ayudará para poder explicar cómo funcionan las partes de nuestro proyecto.
 
-Instalación de jest
-
-```npm install --save-dev babel-jest jest```
-
-
 ## Creación de la clase Blockchain
 
 Esta clase depende de la clase Block y maneja un array interno de bloques para su proposito.
@@ -85,8 +96,4 @@ Este metodo se encarga de reemplazar el array de bloques que tenemos localmente 
 ## Inicializando la blockchain app
 
 Vamos a configurar endpoints para que cualquier usuario pueda acceder a las propiedades de nuestra blockchain.
-
-Paquetes necesarios para poder agregar endpoints para poder trabajar en forma descentralizada.
-
-```npm install express body-parser ```
 
