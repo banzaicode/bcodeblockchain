@@ -25,6 +25,14 @@ describe('Transaction', () => {
         expect(output.amount).toEqual(amount);
     });
 
+    it('inputs the balance of the wallet', () => {
+        expect(transaction.input.amount).toEqual(wallet.balance);
+    });
+
+    it('inputs the sender address of the wallet', () => {
+        expect(transaction.input.address).toEqual(wallet.publicKey);
+    });
+
     describe('transacting with an amount that exceeds the balance', () => {
         beforeEach(() => {
             amount = 500;
