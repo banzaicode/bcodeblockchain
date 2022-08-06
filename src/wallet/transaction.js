@@ -1,4 +1,5 @@
 import { v1 as uuidV1 } from 'uuid';
+import { elliptic } from '../modules';
 
 class Transaction {
     constructor() {
@@ -27,6 +28,12 @@ class Transaction {
 
         return transaction;
     };
+
+    static verify(transaction) {
+        const { input: { address, signature }, outputs } = transaction;
+
+        return elliptic.VerifySignature(address, signature, outputs);
+    }
 };
 
 export default Transaction;
