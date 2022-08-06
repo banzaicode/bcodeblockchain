@@ -1,5 +1,5 @@
-import pkg from 'crypto-js';
 import adjustDifficulty from './modules/difficulty';
+import generateHash from '../modules/hash';
 
 const DIFFICULTY = 3;
 
@@ -39,8 +39,7 @@ class Block {
   }
 
   static hash(timestamp, prevHash, data, nonce, difficulty) {
-    const { SHA256 } = pkg;
-    return SHA256(`${timestamp}${prevHash}${data}${nonce}${difficulty}`).toString();
+    return generateHash(`${timestamp}${prevHash}${data}${nonce}${difficulty}`);
   }
 
   toString() {
