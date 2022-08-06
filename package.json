@@ -24,7 +24,8 @@
     "nodemon": "nodemon --exec npm start",
     "lint": "eslint index.js src",
     "test": "NODE_OPTIONS='--experimental-vm-modules --experimental-specifier-resolution=node' jest",
-    "test:watch": "NODE_OPTIONS='--experimental-vm-modules --experimental-specifier-resolution=node' jest --watchAll"
+    "test:watch": "NODE_OPTIONS='--experimental-vm-modules --experimental-specifier-resolution=node' jest --watchAll",
+    "test:coverage": "NODE_OPTIONS='--experimental-vm-modules --experimental-specifier-resolution=node' jest --coverage"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
