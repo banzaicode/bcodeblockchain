@@ -55,4 +55,25 @@ describe('Transaction', () => {
             }).toThrowError(`Amount: ${amount} exceeds balance.`);
         });
     });
+
+    describe('and updating a transaction', () => {
+        let nextAmount;
+        let nextAddress;
+    
+        beforeEach(() => {
+          nextAmount = 3;
+          nextAddress = 'n3xt-4ddr3ss';
+          transaction = transaction.update(wallet, nextAddress, nextAmount);
+        });
+    
+        it('subtracts the next amount from the senders wallet', () => {
+          const output = transaction.outputs.find(({ address }) => address === wallet.publicKey);
+          expect(output.amount).toEqual(wallet.balance - amount - nextAmount);
+        });
+    
+        it('outputs an amount for the next receiver', () => {
+          const output = transaction.outputs.find(({ address }) => address === nextAddress);
+          expect(output.amount).toEqual(nextAmount);
+        });
+      });    
 });
