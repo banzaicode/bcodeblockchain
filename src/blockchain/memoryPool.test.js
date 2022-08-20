@@ -39,4 +39,12 @@ describe('MemoryPool', () => {
     expect(JSON.stringify(found)).not.toEqual(transactionOrigin);
     expect(transactionModify).toEqual(found);
   });
+
+  it('find a transaction in the memoryPool', () => {
+    const { publicKey } = wallet;
+    const found = memoryPool.find(publicKey);
+
+    expect(memoryPool.transactions.length).toEqual(1);
+    expect(found).not.toEqual(undefined);
+  });
 });
