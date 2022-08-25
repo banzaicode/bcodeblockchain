@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 
 import Blockchain from '../blockchain/index.js';
 import Wallet from '../wallet/index.js';
-import NetworkService from './network.js';
+import NetworkService, { MESSAGES } from './network.js';
 
 const { HTTP_PORT = 3000 } = process.env;
 
@@ -44,6 +44,7 @@ app.get('/transactions', (req, res) => {
   
     try {
       const tx = wallet.createTransaction(recipient, amount);
+      networkService.broadcast(MESSAGES.TX, tx);
       res.json(tx);
     } catch (error) {
       res.json({ error: error.message });
