@@ -1,4 +1,13 @@
 # Proyecto myBlockchain
+
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=bugs)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
+
 ## Iniciando en la blockchain
 La idea de este proyecto es construir una Blockchain e ir aprendiendo mediante vamos implementando funcionalidad.
 Intentaremos entender los pilares conceptuales de esta tecnología mientras, en el camino, vamos construyendo una blockchain similar a la de bitcoin u otras redes.
@@ -40,60 +49,70 @@ Instalamos modulos de node para trabajar con curvas elipticas de criptografía, 
 
 ```npm install elliptic ```
 
+Instalamos dependencias para agregar la funcionalidad de crear y utilizar uuid
+
+```npm install uuid ```
+
 Creamos un fichero .babelrc y agregamos solo el preset que hemos instalado por el momento ```"presets": ["@babel/preset-env"]```
 
 Creamos un fichero .eslintrc y agregamos la extención de airbnb, configuramos jest y node y agregamos una regla para la cantidad de columnas (esto ultimo es cuestion personal, a mi me agrada agregarlo)
 
 Agregamos el archivo index.js y le colocamos un console.log solo para saber que funcina nuestra inicialización.
 
-## Creación del block Genesis de la blockchain
+## Cómo ejecutar nodos de la blockchain
 
-### Creación de la clase block
-Crearemos una clase block que sera la base de nuestra blockchain con las siguientes propiedades iniciales:
-* timestamp (fecha de creación del bloque)
-* prevHash (hash del bloque anterior que se toma como vector de enlace)
-* hash (valor unico generado con valores del mismo bloque)
-* data (datos guardados en el bloque)
+Para comenzar con una nueva instancia de un nodo podemos ejecutar el siguiente script que tenemos configurado en el package.json
 
-Con esta clase generaremos el primer bloque de la blockchain llamado bloque genesis.
+```npm run start ```
 
-Para poder generar el bloque genesis vamos a crear, como primera iteración, un metodo solo para esta responsabilidad, crear el bloque Genesis de la blockchain.
+Esto lo que realizaría es inicializar un nodo escuchando en los puertos por default que tiene que son 3000 y 5000
 
-Para poder generar nuevos bloques luego de inicializar la blockchain con el bloque Genesis, implementaremos un metodo mine para que la clase se encargue de hacer el proceso.
+luego si queremos levantar una nueva instancia y que esta se sincronice con la anterior, es decir, cada noto tendra el 50% de la red de validadores de nuestra blockchain, ejecutamos el siguiente script que tambien tenemos ya configurado en el package.json
 
-### Testing de la clase Block
+```npm run start:2 ```
 
-Teniendo la clase block, vamos a necesitar que nuestro código sea consistente durante todo nuestro desarrollo.
+Esto lo que realizaría es inicializar un nodo escuchando en los puertos por default que tiene que son 3001 y 5001, con el argumento tambien para indicarle con que otro nodo tiene que sincronizarse.
 
-Vamos a utilizar jest un framework de testing para javascript.
+```console
+HTTP_PORT=3001 NETWORK_PORT=5001 NODES=ws:localhost:5000
+```
 
-Ademas de ayudarnos a verificar que no tenemos errores en nuestra implementación, esto nos ayudará para poder explicar cómo funcionan las partes de nuestro proyecto.
+teniendo los dos nodos corriendo podemos hacer pruebas a los endpoints de cada uno.
 
-## Creación de la clase Blockchain
+verificamos los blockes minados
 
-Esta clase depende de la clase Block y maneja un array interno de bloques para su proposito.
+```console
+GET http://localhost:3000/blocks
+```
 
-Cada instacia de esta clase se inicia con un bloque Genesis.
+para poder minar un block
 
-En una primera iteración vamos a crear un metodo que agrega bloques nuevos al final del array y que tenga como relación el bloque previo.
+```console
+POST http://localhost:3000/mine HTTP/1.1
+content-type: application/json
 
-### Testing de la clase blockchain
+{
+    "data": "new block origin 3000"
+}
+```
 
-Como se realizó el test de la clase block procedemos a crear la clase `Blockchain.test.js` en la misma carpeta e implementamos 2 metodos de testing. Testeamos que en toda blockchain exista el bloque Genesis y otro para verificar el metodo addBlock.
+verificamos las transacciones que tenemos en la memoryPool
 
-## Agregar validador
-Para que podamos trabajar en forma distribuida se necesita incorporar soporte para multiples nodos y para esto necesitamos un sistema de validación para cuando se generen nuevos bloques en nuestra blockchain.
+```console
+GET http://localhost:3000/transactions
+```
 
-* length validator: el objetivo final es siempre quedarse con la cadena mas larga de entre todos los nodos.
-* hash validator: el objetivo final es verificar la integridad de la blockchain.
+creamos una nueva transaccion y queda en la memoryPool hasta ser confirmada
 
-### Testing de la clase validate
-Creamos la suite de test `validate.test.js` y procedemos a realizar el testing de la cadena, le enviamos la cadena completa y nos tendria que devolver un true, luego deberiamos validar los diferentes errores que fuimos implementando (que el bloque Genesis no este corrupto, que el prevHash no este corrupto y que el hash no este corrupto).
+```console
+POST http://localhost:3000/transaction HTTP/1.1
+content-type: application/json
 
-## Agregar un metodo replace a blockchain
-Este metodo se encarga de reemplazar el array de bloques que tenemos localmente por el que se le pasa en el caso de que el bloque local tenga menos bloques que el que se le pasa como parametro, ademas se lo pasa por la validación de bloques para poder asegurarnos de que la cadena de bloques pasada es valida.
+{
+    "recipient": "random-address",
+    "amount": 51
+}
+```
 
-## Inicializando la blockchain app
-
-Vamos a configurar endpoints para que cualquier usuario pueda acceder a las propiedades de nuestra blockchain.
+Cambiando el numero del puerto podemos realizar las operaciones entre los diferentes nodos que tengamos corriendo localmente.
 
