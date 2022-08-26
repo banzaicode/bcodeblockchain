@@ -1,0 +1,51 @@
+### Node 1
+GET http://localhost:3000/blocks HTTP/1.1
+
+### Node 1
+GET http://localhost:3000/nodes HTTP/1.1
+
+### Node 2
+GET http://localhost:3001/blocks HTTP/1.1
+
+### Node 2
+GET http://localhost:3001/nodes HTTP/1.1
+
+### Node 1
+POST http://localhost:3000/mine HTTP/1.1
+content-type: application/json
+
+{
+    "data": "new block origin 3000"
+}
+
+### Node 2
+POST http://localhost:3001/mine HTTP/1.1
+content-type: application/json
+
+{
+    "data": "new block origin 3001"
+}
+
+### Node 1
+GET http://localhost:3000/transactions HTTP/1.1
+
+### Node 1
+POST http://localhost:3000/transaction HTTP/1.1
+content-type: application/json
+
+{
+    "recipient": "random-address",
+    "amount": 51
+}
+
+### Node 2
+GET http://localhost:3001/transactions HTTP/1.1
+
+### Node 2
+POST http://localhost:3001/transaction HTTP/1.1
+content-type: application/json
+
+{
+    "recipient": "random-address",
+    "amount": 51
+}
