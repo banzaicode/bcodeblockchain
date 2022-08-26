@@ -2,7 +2,7 @@ import WebSocket, { WebSocketServer } from 'ws';
 
 const { NETWORK_PORT = 5000, NODES } = process.env;
 const nodes = NODES ? NODES.split(',') : [];
-const MESSAGES = { BLOCKS: 'blocks' };
+const MESSAGES = { BLOCKS: 'blocks', 'TX': 'Transactions' };
 
 class NetworkService {
     constructor(blockchain) {
@@ -33,8 +33,10 @@ class NetworkService {
 
             try {
                 if (type === MESSAGES.BLOCKS) blockchain.replace(value);
+                else if (type === MESSAGES.TX) blockchain.memoryPool.addOrUpdate(value);
             } catch (error) {
                 console.log(`[ws:message] error ${error}`);
+                throw Error(error);
             }
         });
 
@@ -53,4 +55,5 @@ class NetworkService {
     }
 }
 
+export { MESSAGES };
 export default NetworkService;
