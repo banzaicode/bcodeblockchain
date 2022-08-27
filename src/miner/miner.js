@@ -1,4 +1,5 @@
 import { Transaction, blockchainWallet } from '../wallet';
+import { MESSAGES } from '../service/network';
 
 class Miner {
     constructor(blockchain, networkService, wallet) {
@@ -20,7 +21,8 @@ class Miner {
       const block = this.blockchain.addBlock(memoryPool.transactions);
       networkService.sync();
       memoryPool.wipe();
-      
+      networkService.broadcast(MESSAGES.TXWIPE);
+
       return block;
     }
   }
