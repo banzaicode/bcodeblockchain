@@ -11,7 +11,7 @@ GET http://localhost:3001/blocks HTTP/1.1
 GET http://localhost:3001/nodes HTTP/1.1
 
 ### Node 1
-POST http://localhost:3000/mine HTTP/1.1
+POST http://localhost:3000/mine/blocks HTTP/1.1
 content-type: application/json
 
 {
@@ -19,7 +19,7 @@ content-type: application/json
 }
 
 ### Node 2
-POST http://localhost:3001/mine HTTP/1.1
+POST http://localhost:3001/mine/blocks HTTP/1.1
 content-type: application/json
 
 {
@@ -47,5 +47,13 @@ content-type: application/json
 
 {
     "recipient": "random-address",
-    "amount": 51
+    "amount": 15
 }
+
+### Node 1
+POST http://localhost:3000/mine/transactions HTTP/1.1
+content-type: application/json
+
+### Node 2
+POST http://localhost:3001/mine/transactions HTTP/1.1
+content-type: application/json

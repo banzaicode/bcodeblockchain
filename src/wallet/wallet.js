@@ -1,7 +1,7 @@
 import { elliptic, generateHash } from '../modules';
 import Transaction from './transaction';
 
-const INITIAL_BALANCE = 0;
+const INITIAL_BALANCE = 100;
 
 class Wallet {
     constructor(blockchain, initialBalance = INITIAL_BALANCE) {
