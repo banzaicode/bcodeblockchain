@@ -4,13 +4,16 @@ import bodyParser from 'body-parser';
 import Blockchain from '../blockchain/index.js';
 import Wallet from '../wallet/index.js';
 import NetworkService, { MESSAGES } from './network.js';
+import Miner from '../miner';
 
 const { HTTP_PORT = 3000 } = process.env;
 
 const app = express();
 const blockchain = new Blockchain();
 const wallet = new Wallet(blockchain);
+const walletMiner = new Wallet(blockchain, 0);
 const networkService = new NetworkService(blockchain);
+const miner = new Miner(blockchain, networkService, walletMiner);
 
 app.use(bodyParser.json());
 
@@ -22,7 +25,7 @@ app.get('/nodes', (request, response) => {
     response.json(networkService.sockets.length);
 });
 
-app.post('/mine', (request, response) => {
+app.post('/mine/blocks', (request, response) => {
     const { body: { data } } = request;
     const block = blockchain.addBlock(data);
 
@@ -50,6 +53,14 @@ app.get('/transactions', (req, res) => {
       res.json({ error: error.message });
     }
   });
+
+app.post('/mine/transactions', (req, res) => {
+  try {
+    miner.mine();
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
 
 app.listen(HTTP_PORT, () => {
     console.log(`Service HTTP:${HTTP_PORT} ready...`);
