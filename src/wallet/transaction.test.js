@@ -1,5 +1,6 @@
-import Transaction from './transaction';
+import Transaction, { REWARD } from './transaction';
 import Wallet from './wallet';
+import { blockchainWallet } from './index';
 
 describe('Transaction', () => {
     let wallet;
@@ -61,19 +62,36 @@ describe('Transaction', () => {
         let nextAddress;
     
         beforeEach(() => {
-          nextAmount = 3;
-          nextAddress = 'n3xt-4ddr3ss';
-          transaction = transaction.update(wallet, nextAddress, nextAmount);
+            nextAmount = 3;
+            nextAddress = 'n3xt-4ddr3ss';
+            transaction = transaction.update(wallet, nextAddress, nextAmount);
         });
     
         it('subtracts the next amount from the senders wallet', () => {
-          const output = transaction.outputs.find(({ address }) => address === wallet.publicKey);
-          expect(output.amount).toEqual(wallet.balance - amount - nextAmount);
+            const output = transaction.outputs.find(({ address }) => address === wallet.publicKey);
+            expect(output.amount).toEqual(wallet.balance - amount - nextAmount);
         });
     
         it('outputs an amount for the next receiver', () => {
-          const output = transaction.outputs.find(({ address }) => address === nextAddress);
-          expect(output.amount).toEqual(nextAmount);
+            const output = transaction.outputs.find(({ address }) => address === nextAddress);
+            expect(output.amount).toEqual(nextAmount);
         });
-      });    
+    });
+    
+    describe('creating a reward transaction', () => {
+        beforeEach(() => {
+            blockchainWallet.balance = 100;
+            transaction = Transaction.reward(wallet, blockchainWallet);
+        });
+    
+        it('reward the miners wallet', () => {
+            expect(transaction.outputs.length).toEqual(2);
+
+            let output = transaction.outputs.find(({ address }) => address === wallet.publicKey);
+            expect(output.amount).toEqual(REWARD);
+
+            output = transaction.outputs.find(({ address }) => address === blockchainWallet.publicKey);
+            expect(output.amount).toEqual(blockchainWallet.balance - REWARD);
+        });
+    });
 });

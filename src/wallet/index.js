@@ -1,5 +1,7 @@
 import Transaction from './transaction';
 import Wallet from './wallet';
 
-export { Transaction };
+const blockchainWallet = new Wallet();
+
+export { Transaction, blockchainWallet };
 export default Wallet;
