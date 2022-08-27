@@ -47,4 +47,9 @@ describe('MemoryPool', () => {
     expect(memoryPool.transactions.length).toEqual(1);
     expect(found).not.toEqual(undefined);
   });
+
+  it('wipes transactions', () => {
+    memoryPool.wipe();
+    expect(memoryPool.transactions.length).toEqual(0);
+  });  
 });

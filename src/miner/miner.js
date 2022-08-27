@@ -19,7 +19,8 @@ class Miner {
       memoryPool.transactions.push(Transaction.reward(wallet, blockchainWallet));
       const block = this.blockchain.addBlock(memoryPool.transactions);
       networkService.sync();
-  
+      memoryPool.wipe();
+      
       return block;
     }
   }
