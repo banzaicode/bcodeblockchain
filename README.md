@@ -1,4 +1,4 @@
-# Proyecto myBlockchain
+# Proyecto BcodeBlockchain
 
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=banzaicode_myblockchain&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=banzaicode_myblockchain)
