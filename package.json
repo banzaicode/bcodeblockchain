@@ -16,7 +16,7 @@
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.26.0",
     "jest": "28.1.2",
-    "nodemon": "2.0.18"
+    "nodemon": "2.0.19"
   },
   "scripts": {
     "start": "NODE_OPTIONS='--experimental-vm-modules --experimental-specifier-resolution=node' babel-node ./src/service/index.js",
