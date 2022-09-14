@@ -7,9 +7,9 @@
   "author": "BanzaiCode",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.19.0",
-    "@babel/node": "7.18.10",
-    "@babel/preset-env": "7.19.0",
+    "@babel/core": "7.19.1",
+    "@babel/node": "7.19.1",
+    "@babel/preset-env": "7.19.1",
     "@types/crypto-js": "4.1.1",
     "babel-jest": "29.0.3",
     "eslint": "8.23.1",
