@@ -66,3 +66,8 @@ app.listen(HTTP_PORT, () => {
     console.log(`Service HTTP:${HTTP_PORT} ready...`);
     networkService.listen();
 });
+
+app.post('/wallet', (req, res) => {
+  const { publicKey } = new Wallet(blockchain);
+  res.json({ publicKey });
+});

@@ -59,4 +59,58 @@ describe('Wallet', () => {
             });            
         });
     });
+
+    describe('calculating current wallet balance', () => {
+        let addBalance;
+        let times;
+        let senderWallet;
+    
+        beforeEach(() => {
+          addBalance = 22;
+          times = 3;
+          senderWallet = new Wallet(blockchain);
+    
+          for (let i = 0; i < times; i++) {
+            senderWallet.createTransaction(wallet.publicKey, addBalance);
+          }
+    
+          blockchain.addBlock(blockchain.memoryPool.transactions);
+        });
+    
+        it('calculates the balance for blockchain transactions matching the recipient', () => {
+          expect(wallet.currentBalance).toEqual(INITIAL_BALANCE + (addBalance * times));
+        });
+    
+        it('calculates the balance for blockchain transactions matching the sender', () => {
+          expect(senderWallet.currentBalance).toEqual(INITIAL_BALANCE - (addBalance * times));
+        });
+    
+        describe('and the recipient conducts a transaction', () => {
+          let subtractBalance = 0;
+          let recipientBalance = 0;
+    
+          beforeEach(() => {
+            blockchain.memoryPool.wipe();
+            subtractBalance = 88;
+            recipientBalance = wallet.currentBalance;
+    
+            wallet.createTransaction(senderWallet.publicKey, addBalance);
+    
+            blockchain.addBlock(blockchain.memoryPool.transactions);
+          });
+    
+          describe('and the sender sends another transaction to the recipient', () => {
+            beforeEach(() => {
+              blockchain.memoryPool.wipe();
+              senderWallet.createTransaction(wallet.publicKey, addBalance);
+    
+              blockchain.addBlock(blockchain.memoryPool.transactions);
+            });
+    
+            it('calculate the recipient balance only using transactions since its most recent one', () => {
+              expect(wallet.currentBalance).toEqual(recipientBalance - subtractBalance + addBalance);
+            });
+          });
+        });
+    });    
 })
