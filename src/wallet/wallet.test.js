@@ -86,8 +86,8 @@ describe('Wallet', () => {
         });
     
         describe('and the recipient conducts a transaction', () => {
-          let subtractBalance;
-          let recipientBalance;
+          let subtractBalance = 0;
+          let recipientBalance = 0;
     
           beforeEach(() => {
             blockchain.memoryPool.wipe();
