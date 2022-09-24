@@ -16,4 +16,4 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build . --file Dockerfile --tag ${{ github.repository }}:${{ github.sha }} --tag ${{ github.repository }}:latest
-        docker push ${{ github.repository }}:${{ github.sha }} ${{ github.repository }}:latest
+        docker push --all-tags ${{ github.repository }}
