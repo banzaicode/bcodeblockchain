@@ -1,0 +1,19 @@
+name: Docker Image 
+
+on:
+  push:
+    tags:
+      - v*.**
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag ${{ github.repository }}:${{ github.sha }} ${{ github.repository }}:latest
+        docker push ${{ github.repository }}:${{ github.sha }} ${{ github.repository }}:latest
