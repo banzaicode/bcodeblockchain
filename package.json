@@ -7,7 +7,7 @@
   "author": "BanzaiCode",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.21.5",
+    "@babel/core": "7.21.8",
     "@babel/node": "7.20.7",
     "@babel/preset-env": "7.21.5",
     "@types/crypto-js": "4.1.1",
